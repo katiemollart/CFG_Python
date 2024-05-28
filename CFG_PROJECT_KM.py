@@ -35,9 +35,10 @@ def run():
     for result in results:
         recipe = result['recipe']
         print('Recipe Name:', recipe['label'])
-        print('Recipe URL:', recipe['uri'])
+        print('Recipe URL:', recipe['url'])
         print()
 
 run()
 
-
+#Come up with a line that shows which dietary requirement you've selected
+#Print?
