@@ -14,6 +14,8 @@
 
 import requests
 from pprint import pprint
+
+
 def recipe_search(ingredient, health_label=None):
     app_id = '1894ea27'
     app_key = '4932e642ba6532369e48374398d1bfc3'
@@ -21,24 +23,25 @@ def recipe_search(ingredient, health_label=None):
     url = 'https://api.edamam.com/search?q={}&app_id={}&app_key={}'.format(ingredient, app_id, app_key)
 
     if health_label:
-        url += '&health={}'.format(health_label) #if a dietary req is given, this appends it to the URL request
+        url += '&health={}'.format(health_label)  #if a dietary req is given, this appends it to the URL request
 
     result = requests.get(url)
     data = result.json()
     return data['hits']
 
-def run():
-    ingredient = input('Enter an ingredient: ')
-    health_label = input('Enter any dietary requirements (e.g., vegetarian/vegan/pescetarian/gluten-free) or press enter if N/A: ') #this corresponds to the health labels in the API docu
 
-    results = recipe_search(ingredient, health_label) #searches by ingredient & dietary req
+def run_search():
+    ingredient = input('Enter an ingredient: ')
+    health_label = input(
+        'Enter any dietary requirements (vegetarian/vegan/pescetarian/gluten-free) or press enter for N/A: ')  #this corresponds to the health labels in the API docu
+    print(f"You have selected: {health_label}. \nThese are {health_label} recipes which include your ingredient '{ingredient}'.")
+
+    results = recipe_search(ingredient, health_label)  #searches by ingredient & dietary req
     for result in results:
         recipe = result['recipe']
         print('Recipe Name:', recipe['label'])
         print('Recipe URL:', recipe['url'])
         print()
 
-run()
 
-#Come up with a line that shows which dietary requirement you've selected
-#Print?
+run_search()
